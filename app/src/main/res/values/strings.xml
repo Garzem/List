@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BigProject</string>
+    <string name="button_to_add">Button to add habit</string>
 </resources>
