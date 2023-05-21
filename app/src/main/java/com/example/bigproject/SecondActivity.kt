@@ -34,16 +34,7 @@ class SecondActivity : AppCompatActivity() {
         val radioButtonPhysical = binding.radioPhysical
         val radioButtonMental = binding.radioMental
 
-        // устанавливает наблюдатель за сменой выбора кнопки
-
-        radioType.setOnCheckedChangeListener { group, checkedId ->
-            val typeFilter = when (checkedId) {
-                radioButtonPhysical.id -> Type.Physical
-                radioButtonMental.id -> Type.Mental
-                else -> Type.Physical
-            }
-            val typeChange = typeFilter
-        }
+        // расписано, что происходит при нажатии на кнопку сохранения
 
         saveHabit.setOnClickListener {
             val title = editTitle.text.toString()
@@ -53,7 +44,11 @@ class SecondActivity : AppCompatActivity() {
 
             // находит отмеченную кнопку
 
-            val type = radioType.checkedRadioButtonId
+            val type = when (radioType.checkedRadioButtonId) {
+                radioButtonPhysical.id -> Type.Physical
+                radioButtonMental.id -> Type.Mental
+                else -> -1
+            }
 
             // находит выбранное значение и переводит в текст
 
