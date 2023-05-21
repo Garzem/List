@@ -1,4 +1,34 @@
 <resources>
     <string name="app_name">BigProject</string>
     <string name="button_to_add">Button to add habit</string>
+    <string name="title_of_habit">Название привычки</string>
+    <string name="habit_description">Описание</string>
+    <string name="select_the_priority">Выберите приоритет</string>
+    <string name="choose_the_type">Выберите тип</string>
+    <string name="mental">Ментальный</string>
+    <string name="Physical">Физический</string>
+    <string name="quantity_doing_habit">Количество выполнения</string>
+    <string name="execution_frequency">Периодичность выполнения</string>
+    <string name="save">Сохранить</string>
+    <string name="TextviewColor">Цвет</string>
+    <string name="something">Something</string>
+    <string name="write_color">Укажите цвет</string>
+
+    <string-array name="priority_options">
+        <item>Выбирете значение</item>
+        <item>Низкий</item>
+        <item>Средний</item>
+        <item>Высокий</item>
+    </string-array>
+
+    <!-- <string-array name="color_options">
+        <item>Красный</item>
+        <item>Зелёный</item>
+        <item>Оранжевый</item>
+        <item>Жёлтый</item>
+        <item>Голубой</item>
+        <item>Синий</item>
+        <item>Фиолетовый</item>
+        <item>Бесцветны</item>
+    </string-array> -->
 </resources>
