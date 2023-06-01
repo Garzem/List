@@ -13,8 +13,8 @@ import com.example.bigproject.databinding.ItemLayoutBinding
 class HabitListAdapter(
     private val onItemClick: MutableList<Habit>,
 
-    // не принимает аргумент и не возвращает значение
-    private val openHabitChange: (index: Int) -> Unit
+    // принимает аргумент и не возвращает значение
+    private val openHabitChange: (habit: Habit, index: Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ViewHolder>() {
 
     // инициализирует пустой список для отображения в RecyclerView
@@ -68,7 +68,7 @@ class HabitListAdapter(
 
         // устанавливает слушатель на элемент списка
         holder.itemView.setOnClickListener{
-            habitChanged(currentItem, index)
+            openHabitChange(currentItem, index)
         }
 
     }
@@ -79,12 +79,14 @@ class HabitListAdapter(
     fun setList(newHabit: List<Habit>) {
         habits = newHabit
         notifyDataSetChanged()
+        // getHabit
         }
     }
 
-    private fun habitChanged(update: Habit, index: Int){
-        openHabitChange(index)
-    }
+//    private fun habitChanged(update: Habit, index: Int){
+//
+//    }
+
 
 
 

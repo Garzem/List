@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
     }
     // обработчик нажатий на элемент списка
 
-    private fun openHabitChange(index: Int) {
+    private fun openHabitChange(habit: Habit, index: Int) {
         //val habitIndex =
         val intent = Intent(this, HabitEditActivity::class.java).apply {
         }
