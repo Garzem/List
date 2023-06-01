@@ -14,7 +14,7 @@ class HabitListAdapter(
     private val onItemClick: MutableList<Habit>,
 
     // принимает аргумент и не возвращает значение
-    private val openHabitChange: (habit: Habit, index: Int) -> Unit
+    private val openHabitChange: (index: Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ViewHolder>() {
 
     // инициализирует пустой список для отображения в RecyclerView
@@ -68,7 +68,7 @@ class HabitListAdapter(
 
         // устанавливает слушатель на элемент списка
         holder.itemView.setOnClickListener{
-            openHabitChange(currentItem, index)
+            openHabitChange(index)
         }
 
     }

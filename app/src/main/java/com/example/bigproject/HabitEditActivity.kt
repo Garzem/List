@@ -19,67 +19,104 @@ class HabitEditActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        // расписано, что происходит при нажатии на кнопку сохранения
+        binding.saveHabit.setOnClickListener {
+            saveHabitData()
+        }
+
+        habitEditChange()
+    }
+
+    private fun saveHabitData() {
         with(binding) {
-            saveHabit.setOnClickListener {
+            // вынести в отдельный метод saveHabit
 
-                // вынести в отдельный метод saveHabit
+            val title = editTitle.text.toString()
+            val description = editDescription.text.toString()
+            val quantity = editQuantity.text.toString()
+            val period = editPeriod.text.toString()
 
-                val title = editTitle.text.toString()
-                val description = editDescription.text.toString()
-                val quantity = editQuantity.text.toString()
-                val period = editPeriod.text.toString()
+            // находит отмеченную кнопку и определяет её тип
 
-                // находит отмеченную кнопку и определяет её тип
+            val type = when (radioType.checkedRadioButtonId) {
+                radioPhysical.id -> Type.Physical
+                radioMental.id -> Type.Mental
+                else -> null
+            }
 
-                val type = when (radioType.checkedRadioButtonId) {
-                    radioPhysical.id -> Type.Physical
-                    radioMental.id -> Type.Mental
-                    else -> null
-                }
+            // находит выбранное значение и переводит в текст
 
-                // находит выбранное значение и переводит в текст
+            val spinner = spinnerPriority.selectedItem.toString()
+            val colorString = editColor.text.toString()
 
-                val spinner = spinnerPriority.selectedItem.toString()
-                val colorString = editColor.text.toString()
-
-                val color = if (colorString.isNotEmpty() && TextUtils.isDigitsOnly(colorString)) {
+            val color =
+                if (colorString.isNotEmpty() && TextUtils.isDigitsOnly(colorString)) {
                     colorString.toInt()
                 } else {
                     0
                 }
 
-                // связываем xml с kotlin
+            // связываем xml с kotlin
 
-                val priority = when (spinner) {
-                    "Низкий" -> Priority.Low
-                    "Средний" -> Priority.Medium
-                    "Высокий" -> Priority.High
-                    else -> Priority.Choose
-                }
-
-                // проверка на обязательные поля . вынести в отдельный метод validate
-
-                if (title.isEmpty() || description.isEmpty() || quantity.isEmpty() || period.isEmpty() || type == null || priority == Priority.Choose || color == 0) {
-                    Toast.makeText(
-                        this@HabitEditActivity,
-                        R.string.fill_the_line, // тип Int
-                        Toast.LENGTH_SHORT // тип Int
-                    ).show()
-                    return@setOnClickListener
-                }
-
-                val habit = Habit(title, description, period, color, priority, type, quantity)
-                HabitList.addHabit(habit)
-                setResult(Activity.RESULT_OK)
-                finish()
+            val priority = when (spinner) {
+                "Низкий" -> Priority.Low
+                "Средний" -> Priority.Medium
+                "Высокий" -> Priority.High
+                else -> Priority.Choose
             }
-            // получить индекс и по этому индексу с помощью getHabit получить привычку и заполнить все поля для редактирования
+
+            // проверка на обязательные поля . вынести в отдельный метод validate
+
+            if (title.isEmpty() || description.isEmpty() || quantity.isEmpty() || period.isEmpty() || type == null || priority == Priority.Choose || color == 0) {
+                Toast.makeText(
+                    this@HabitEditActivity,
+                    R.string.fill_the_line, // тип Int
+                    Toast.LENGTH_SHORT // тип Int
+                ).show()
+                return
+            }
+
+            val habit = Habit(title, description, period, color, priority, type, quantity)
+            HabitList.addHabit(habit)
+            setResult(Activity.RESULT_OK)
+            finish()
         }
 
+        // получить индекс и по этому индексу с помощью getHabit получить привычку и заполнить все поля для редактирования
+    }
+    private fun habitEditChange() {
+        val index = intent.getIntExtra("index", -1)
+
+        if (index != -1) {
+            val habitEdit = HabitList.getHabit(index)
+            fillFieldsWithHabitData(habitEdit)
+        }
     }
 
-    private fun saveHabitChange() {
+    // заполняет поля данными, которые были переданы ранее из MainActivity
+    private fun fillFieldsWithHabitData(habitEdit : Habit) {
+        with(binding) {
+            editTitle.setText(habitEdit.title)
+            editDescription.setText(habitEdit.description)
+            editQuantity.setText(habitEdit.quantity)
+            editPeriod.setText(habitEdit.period)
 
+            when (habitEdit.type) {
+                Type.Physical -> radioType.check(radioPhysical.id)
+                Type.Mental -> radioType.check(radioMental.id)
+            }
+
+            when (habitEdit.priority) {
+                Priority.Low -> spinnerPriority.setSelection(1)
+                Priority.Medium -> spinnerPriority.setSelection(2)
+                Priority.High -> spinnerPriority.setSelection(3)
+                else -> Priority.Choose // почему здесь надо else, а в коде выше можно без него?
+            }
+            editColor.setText(habitEdit.color.toString())
+            }
     }
 }
+
+//    private fun saveHabitChange() {
+//        HabitList.updateHabit()
+//    }
+//}
