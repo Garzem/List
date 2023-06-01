@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".SecondActivity"
+            android:name=".HabitEditActivity"
             android:exported="true">
         </activity>
     </application>

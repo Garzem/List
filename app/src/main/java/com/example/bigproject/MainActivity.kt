@@ -13,13 +13,13 @@ class MainActivity : AppCompatActivity() {
 
     // делает более позднюю инициализацию, чтобы не было проблем с отображением активити
 
-    lateinit var binding: ActivityMainBinding
-    lateinit var adapter: RecycleViewAdapter
-    lateinit var recyclerView: RecyclerView
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: HabitListAdapter
+    private lateinit var recyclerView: RecyclerView
 
     // MutableList потому что в дальнейшем должна быть возможность редактировать созданный хобби
 
-    private val itemList: MutableList<ListProperties> = mutableListOf()
+    private val itemList: MutableList<Habit> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         // в переменную adapter передаётся список элементов из RecycleViewAdapter
 
-        adapter = RecycleViewAdapter(itemList)
+        adapter = HabitListAdapter(itemList, ::openHabitChange)
 
         // устанавливает adapter для RecyclerView
 
@@ -54,33 +54,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // создаётся получатель данных из второй активити, который сверяет информацию (if).
-    // в result определяет код для обработки результата из второй активити
-
     @SuppressLint("NotifyDataSetChanged")
     private val secondActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            val data: Intent? = result.data
-            val title = data?.getStringExtra("title") ?: ""
-            val description = data?.getStringExtra("description") ?: ""
-            val quantity = data?.getStringExtra("quantity") ?: ""
-            val period = data?.getStringExtra("period") ?: ""
-            val priorityGet = data?.getStringExtra("priority")
-            val typeGet = data?.getStringExtra("type")
-            val colorGet = data?.getStringExtra("color")
+            adapter.setList(HabitList.getHabits())
 
-            // сравнивает равно ли значение из enum class полученному, если да,
-            // то показывает его, если нет, то по умолчанию
+            // работает на все строки
 
-            val priority = Priority.values().find { it.name == priorityGet } ?: Priority.Low
-            val type = Type.values().find { it.name == typeGet } ?: Type.Physical
-
-            // преобразует String в Int или null
-
-            val color = colorGet?.toIntOrNull() ?:0
-
-            val item = ListProperties(title, description, period, color, priority, type, quantity)
-            itemList.add(item)
             adapter.notifyDataSetChanged()
         }
     }
@@ -89,13 +69,15 @@ class MainActivity : AppCompatActivity() {
     // , который был зарегистрирован ранее
 
     private fun launchSecondActivity() {
-        val intent = Intent(this, SecondActivity::class.java)
+        val intent = Intent(this, HabitEditActivity::class.java)
         secondActivityLauncher.launch(intent)
     }
-
     // обработчик нажатий на элемент списка
 
-    fun onItemClick(item: ListProperties) {
-
+    private fun openHabitChange(index: Int) {
+        //val habitIndex =
+        val intent = Intent(this, HabitEditActivity::class.java).apply {
+        }
+        startActivity(intent)
     }
 }

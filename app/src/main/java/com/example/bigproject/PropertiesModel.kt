@@ -1,6 +1,6 @@
 package com.example.bigproject
 
-data class ListProperties(
+data class Habit(
     val title: String,
     val description: String,
     val period: String,
@@ -13,7 +13,8 @@ data class ListProperties(
 enum class Priority {
     High,
     Medium,
-    Low
+    Low,
+    Choose
 }
 
 enum class Type {

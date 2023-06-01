@@ -21,6 +21,8 @@
         <item>Высокий</item>
     </string-array>
 
+    <string name="fill_the_line">"Пожалуйста, заполните все поля и выберете значения"</string>
+
     <!-- <string-array name="color_options">
         <item>Красный</item>
         <item>Зелёный</item>

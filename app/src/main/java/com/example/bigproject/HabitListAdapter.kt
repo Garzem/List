@@ -3,23 +3,27 @@ package com.example.bigproject
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bigproject.databinding.ItemLayoutBinding
 
 
 // объединяет список с Model и указывает, что будет работать со вложенным классом ViewHolder
 
-class RecycleViewAdapter(
-    private val onItemClick: MutableList<ListProperties>
-) : RecyclerView.Adapter<RecycleViewAdapter.ViewHolder>() {
+class HabitListAdapter(
+    private val onItemClick: MutableList<Habit>,
+
+    // не принимает аргумент и не возвращает значение
+    private val openHabitChange: (index: Int) -> Unit
+) : RecyclerView.Adapter<HabitListAdapter.ViewHolder>() {
 
     // инициализирует пустой список для отображения в RecyclerView
 
-    private var habits = emptyList<ListProperties>()
+    private var habits = emptyList<Habit>()
 
     // привязывает макет item_layout к элементам списка
 
-    class ViewHolder(val itemBinding: ItemLayoutBinding)  : RecyclerView.ViewHolder(itemBinding.root)
+    class ViewHolder(val itemBinding: ItemLayoutBinding) : RecyclerView.ViewHolder(itemBinding.root)
 
     // создаёт новый view, т.е то, что должно выводиться на экран
 
@@ -46,28 +50,50 @@ class RecycleViewAdapter(
 
     //привязывает данные
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, index: Int) {
 
-        val currentItem = habits[position]
+        val currentItem = habits[index]
 
         // находит каждый элемент списка и устанавливает ему соот. значение из спика habits
 
-        holder.itemBinding.title.text = currentItem.title
-        holder.itemBinding.description.text = currentItem.description
-        holder.itemBinding.period.text = currentItem.period
-        holder.itemBinding.quantity.text = currentItem.quantity
-        holder.itemBinding.color.setBackgroundColor(currentItem.color)
-        holder.itemBinding.priority.text = currentItem.priority.toString()
-        holder.itemBinding.type.text = currentItem.type.toString()
+        with(holder.itemBinding) {
+            title.text = currentItem.title
+            description.text = currentItem.description
+            period.text = currentItem.period
+            quantity.text = currentItem.quantity
+            color.setBackgroundColor(currentItem.color)
+            priority.text = currentItem.priority.toString()
+            type.text = currentItem.type.toString()
+        }
+
+        // устанавливает слушатель на элемент списка
+        holder.itemView.setOnClickListener{
+            habitChanged(currentItem, index)
+        }
 
     }
 
     // принимает список объектов и обновляет их в adapter
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(newHabit: List<ListProperties>) {
+    fun setList(newHabit: List<Habit>) {
         habits = newHabit
         notifyDataSetChanged()
+        }
     }
 
-}
+    private fun habitChanged(update: Habit, index: Int){
+        openHabitChange(index)
+    }
+
+
+
+//object FlowerDiffCallback : DiffUtil.ItemCallback<Flower>() {
+//    override fun areItemsTheSame(oldItem: Flower, newItem: Flower): Boolean {
+//        return oldItem == newItem
+//    }
+//
+//    override fun areContentsTheSame(oldItem: Flower, newItem: Flower): Boolean {
+//        return oldItem.id == newItem.id
+//    }
+//}
