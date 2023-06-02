@@ -11,6 +11,7 @@ import com.example.bigproject.databinding.ActivitySecondBinding
 class HabitEditActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySecondBinding
+    private var habitIndex: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,11 +20,11 @@ class HabitEditActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
+        habitEditChange()
+
         binding.saveHabit.setOnClickListener {
             saveHabitData()
         }
-
-        habitEditChange()
     }
 
     private fun saveHabitData() {
@@ -74,26 +75,32 @@ class HabitEditActivity : AppCompatActivity() {
                 ).show()
                 return
             }
-
-            val habit = Habit(title, description, period, color, priority, type, quantity)
-            HabitList.addHabit(habit)
+            if (habitIndex != -1) {
+                val habit = Habit(title, description, period, color, priority, type, quantity)
+                HabitList.updateHabit(habit, habitIndex)
+            } else {
+                val habit = Habit(title, description, period, color, priority, type, quantity)
+                HabitList.addHabit(habit)
+            }
             setResult(Activity.RESULT_OK)
             finish()
         }
-
         // получить индекс и по этому индексу с помощью getHabit получить привычку и заполнить все поля для редактирования
     }
+
     private fun habitEditChange() {
         val index = intent.getIntExtra("index", -1)
 
         if (index != -1) {
+
+            // получает уже заполненную habit
             val habitEdit = HabitList.getHabit(index)
             fillFieldsWithHabitData(habitEdit)
         }
     }
 
     // заполняет поля данными, которые были переданы ранее из MainActivity
-    private fun fillFieldsWithHabitData(habitEdit : Habit) {
+    private fun fillFieldsWithHabitData(habitEdit: Habit) {
         with(binding) {
             editTitle.setText(habitEdit.title)
             editDescription.setText(habitEdit.description)
@@ -112,7 +119,7 @@ class HabitEditActivity : AppCompatActivity() {
                 else -> Priority.Choose // почему здесь надо else, а в коде выше можно без него?
             }
             editColor.setText(habitEdit.color.toString())
-            }
+        }
     }
 }
 

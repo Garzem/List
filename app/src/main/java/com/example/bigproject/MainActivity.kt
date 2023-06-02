@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         // в переменную adapter передаётся список элементов из RecycleViewAdapter
 
-        adapter = HabitListAdapter(itemList, ::openHabitChange)
+        adapter = HabitListAdapter(::openHabitChange)
 
         // устанавливает adapter для RecyclerView
 
@@ -78,6 +78,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, HabitEditActivity::class.java).apply {
             putExtra("index", index)
         }
-        startActivity(intent)
+        secondActivityLauncher.launch(intent)
     }
 }

@@ -11,15 +11,13 @@ import com.example.bigproject.databinding.ItemLayoutBinding
 // объединяет список с Model и указывает, что будет работать со вложенным классом ViewHolder
 
 class HabitListAdapter(
-    private val onItemClick: MutableList<Habit>,
-
     // принимает аргумент и не возвращает значение
     private val openHabitChange: (index: Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ViewHolder>() {
 
     // инициализирует пустой список для отображения в RecyclerView
 
-    private var habits = emptyList<Habit>()
+    private var habits: MutableList<Habit> = mutableListOf()
 
     // привязывает макет item_layout к элементам списка
 
@@ -51,7 +49,6 @@ class HabitListAdapter(
     //привязывает данные
 
     override fun onBindViewHolder(holder: ViewHolder, index: Int) {
-
         val currentItem = habits[index]
 
         // находит каждый элемент списка и устанавливает ему соот. значение из спика habits
@@ -67,27 +64,27 @@ class HabitListAdapter(
         }
 
         // устанавливает слушатель на элемент списка
-        holder.itemView.setOnClickListener{
+        holder.itemView.setOnClickListener {
             openHabitChange(index)
         }
-
     }
 
     // принимает список объектов и обновляет их в adapter
-
     @SuppressLint("NotifyDataSetChanged")
     fun setList(newHabit: List<Habit>) {
-        habits = newHabit
+        habits = newHabit as MutableList<Habit>
         notifyDataSetChanged()
         // getHabit
-        }
     }
+    fun updateList(habit: Habit, index: Int) {
+        habits[index] = habit
+        notifyItemChanged(index)
+    }
+}
 
 //    private fun habitChanged(update: Habit, index: Int){
 //
 //    }
-
-
 
 
 //object FlowerDiffCallback : DiffUtil.ItemCallback<Flower>() {
