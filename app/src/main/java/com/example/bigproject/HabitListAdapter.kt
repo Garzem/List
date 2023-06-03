@@ -11,13 +11,13 @@ import com.example.bigproject.databinding.ItemLayoutBinding
 // объединяет список с Model и указывает, что будет работать со вложенным классом ViewHolder
 
 class HabitListAdapter(
-    // принимает аргумент и не возвращает значение
+    // принимает аргумент и (unit) действие не возвращает значение
     private val openHabitChange: (index: Int) -> Unit
 ) : RecyclerView.Adapter<HabitListAdapter.ViewHolder>() {
 
     // инициализирует пустой список для отображения в RecyclerView
 
-    private var habits: MutableList<Habit> = mutableListOf()
+    var habits: MutableList<Habit> = mutableListOf()
 
     // привязывает макет item_layout к элементам списка
 
@@ -69,30 +69,12 @@ class HabitListAdapter(
         }
     }
 
-    // принимает список объектов и обновляет их в adapter
+    // принимает список объектов и обновляет их в adapter. благодаря функциям recyclerview
+    // идёт обновление одного view, а не всего кода, поэтому не нужно это указывать в коде
     @SuppressLint("NotifyDataSetChanged")
     fun setList(newHabit: List<Habit>) {
         habits = newHabit as MutableList<Habit>
         notifyDataSetChanged()
         // getHabit
     }
-    fun updateList(habit: Habit, index: Int) {
-        habits[index] = habit
-        notifyItemChanged(index)
-    }
 }
-
-//    private fun habitChanged(update: Habit, index: Int){
-//
-//    }
-
-
-//object FlowerDiffCallback : DiffUtil.ItemCallback<Flower>() {
-//    override fun areItemsTheSame(oldItem: Flower, newItem: Flower): Boolean {
-//        return oldItem == newItem
-//    }
-//
-//    override fun areContentsTheSame(oldItem: Flower, newItem: Flower): Boolean {
-//        return oldItem.id == newItem.id
-//    }
-//}

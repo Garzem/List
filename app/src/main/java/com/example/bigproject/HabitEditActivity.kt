@@ -28,6 +28,9 @@ class HabitEditActivity : AppCompatActivity() {
     }
 
     private fun saveHabitData() {
+        //задаётся здесь, потому что только после кода выше инициализируется объект resources
+        val priorityOptions = resources.getStringArray(R.array.priority_options)
+
         with(binding) {
             // вынести в отдельный метод saveHabit
 
@@ -35,38 +38,12 @@ class HabitEditActivity : AppCompatActivity() {
             val description = editDescription.text.toString()
             val quantity = editQuantity.text.toString()
             val period = editPeriod.text.toString()
-
-            // находит отмеченную кнопку и определяет её тип
-
-            val type = when (radioType.checkedRadioButtonId) {
-                radioPhysical.id -> Type.Physical
-                radioMental.id -> Type.Mental
-                else -> null
-            }
-
-            // находит выбранное значение и переводит в текст
-
-            val spinner = spinnerPriority.selectedItem.toString()
-            val colorString = editColor.text.toString()
-
-            val color =
-                if (colorString.isNotEmpty() && TextUtils.isDigitsOnly(colorString)) {
-                    colorString.toInt()
-                } else {
-                    0
-                }
-
-            // связываем xml с kotlin
-
-            val priority = when (spinner) {
-                "Низкий" -> Priority.Low
-                "Средний" -> Priority.Medium
-                "Высокий" -> Priority.High
-                else -> Priority.Choose
-            }
+            val type = getSelectedType()
+            val priority = getChoosenPriority(priorityOptions)
+            val color = getColor()
 
             // проверка на обязательные поля . вынести в отдельный метод validate
-
+            // раздробить код
             if (title.isEmpty() || description.isEmpty() || quantity.isEmpty() || period.isEmpty() || type == null || priority == Priority.Choose || color == 0) {
                 Toast.makeText(
                     this@HabitEditActivity,
@@ -85,16 +62,15 @@ class HabitEditActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
             finish()
         }
-        // получить индекс и по этому индексу с помощью getHabit получить привычку и заполнить все поля для редактирования
     }
 
     private fun habitEditChange() {
-        val index = intent.getIntExtra("index", -1)
+        habitIndex = intent.getIntExtra("index", -1)
 
-        if (index != -1) {
+        if (habitIndex != -1) {
 
             // получает уже заполненную habit
-            val habitEdit = HabitList.getHabit(index)
+            val habitEdit = HabitList.getHabit(habitIndex)
             fillFieldsWithHabitData(habitEdit)
         }
     }
@@ -113,17 +89,45 @@ class HabitEditActivity : AppCompatActivity() {
             }
 
             when (habitEdit.priority) {
+                Priority.Choose -> spinnerPriority.setSelection(0)
                 Priority.Low -> spinnerPriority.setSelection(1)
                 Priority.Medium -> spinnerPriority.setSelection(2)
                 Priority.High -> spinnerPriority.setSelection(3)
-                else -> Priority.Choose // почему здесь надо else, а в коде выше можно без него?
             }
             editColor.setText(habitEdit.color.toString())
         }
     }
-}
 
-//    private fun saveHabitChange() {
-//        HabitList.updateHabit()
-//    }
-//}
+    // находит отмеченную кнопку и определяет её тип, возвращая полученное значение
+    private fun getSelectedType(): Type? {
+        with(binding) {
+            return when (radioType.checkedRadioButtonId) {
+                radioPhysical.id -> Type.Physical
+                radioMental.id -> Type.Mental
+                else -> null
+            }
+        }
+    }
+
+    //???Почему это работает
+    private fun getChoosenPriority(priorityOptions: Array<String>): Priority {
+        with(binding) {
+            // связываем xml с kotlin
+            return when (spinnerPriority.selectedItem.toString()) {
+                priorityOptions[0] -> Priority.Choose
+                priorityOptions[1] -> Priority.Low
+                priorityOptions[2] -> Priority.Medium
+                priorityOptions[3] -> Priority.High
+                else -> Priority.Choose
+            }
+        }
+    }
+
+    private fun getColor(): Int {
+        val colorString = binding.editColor.text.toString()
+
+        return if (colorString.isNotEmpty() && TextUtils.isDigitsOnly(colorString)) {
+            colorString.toInt()
+        } else 0
+    }
+}

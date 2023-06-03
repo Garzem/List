@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bigproject.databinding.ActivityMainBinding
 
@@ -16,10 +17,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: HabitListAdapter
     private lateinit var recyclerView: RecyclerView
-
-    // MutableList потому что в дальнейшем должна быть возможность редактировать созданный хобби
-
-    private val itemList: MutableList<Habit> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +30,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        // ???разобрать этот блок
-
         // задаёт переменную recyclerView, которая ссылается на RecycleViewHabit
 
         recyclerView = binding.RecycleViewHabit
@@ -43,10 +38,23 @@ class MainActivity : AppCompatActivity() {
 
         adapter = HabitListAdapter(::openHabitChange)
 
-        // устанавливает adapter для RecyclerView
+        // устанавливает adapter для RecyclerView, обращаясь к нему и
+        // переопределяя переменную adapter, которая изначально задана в RecyclerView
 
         recyclerView.adapter = adapter
 
+        val swipeToDeleteCallback = object : SwipeToDeleteCallback(){
+            //в аргументе указывается viewHolder, который смахивается и direction - направление
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val index = viewHolder.adapterPosition
+                adapter.habits.removeAt(index)
+                recyclerView.adapter?.notifyItemRemoved(index)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+
+        itemTouchHelper.attachToRecyclerView(recyclerView)
         // обработчик нажатий FAB
 
         binding.button.setOnClickListener {
@@ -72,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, HabitEditActivity::class.java)
         secondActivityLauncher.launch(intent)
     }
-    // обработчик нажатий на элемент списка
+
 
     private fun openHabitChange(index: Int) {
         val intent = Intent(this, HabitEditActivity::class.java).apply {
