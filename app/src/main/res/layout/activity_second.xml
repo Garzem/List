@@ -11,23 +11,28 @@
         android:id="@+id/editTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/title_of_habit" />
+        android:hint="@string/title_of_habit"
+        android:inputType="text|textAutoCorrect" />
 
     <EditText
         android:id="@+id/editDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
         app:layout_constraintTop_toBottomOf="@id/editTitle"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/habit_description" />
+        android:hint="@string/habit_description"
+        android:inputType="text|textAutoCorrect" />
 
     <TextView
         android:id="@+id/textPriority"
         android:text="@string/select_the_priority"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/normal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -35,6 +40,7 @@
         android:id="@+id/spinnerPriority"
         app:layout_constraintTop_toBottomOf="@+id/textPriority"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/normal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:entries="@array/priority_options" />
@@ -42,6 +48,7 @@
     <TextView
         android:id="@+id/textRadio"
         android:text="@string/choose_the_type"
+        android:layout_margin="@dimen/normal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/spinnerPriority"
@@ -51,6 +58,7 @@
         android:id="@+id/radioType"
         app:layout_constraintTop_toBottomOf="@+id/textRadio"
         app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/normal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -73,33 +81,211 @@
         android:id="@+id/editQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
         app:layout_constraintTop_toBottomOf="@id/editDescription"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/quantity_doing_habit"/>
+        android:hint="@string/quantity_doing_habit"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/editPeriod"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_margin"
         app:layout_constraintTop_toBottomOf="@id/editQuantity"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/execution_frequency"/>
+        android:hint="@string/execution_frequency"
+        android:inputType="text|textAutoCorrect" />
 
     <TextView
         android:id="@+id/colorOfHabit"
-        android:text="@string/TextviewColor"
+        android:text="@string/color_choose_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_margin"
         app:layout_constraintTop_toBottomOf="@+id/editPeriod"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/editColor"
-        app:layout_constraintTop_toBottomOf="@+id/colorOfHabit"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/write_color" />
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="325dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/large_margin"
+        app:layout_constraintTop_toBottomOf="@id/colorOfHabit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearColorButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_pink"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorPink"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_red"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorRed"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_deepOrange"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorDeepOrange"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_orange"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorOrange"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_amber"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorAmber"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_yellow"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorYellow"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_lime"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorLime"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_lightGreen"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorLightGreen"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_green"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorGreen"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_teal"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorTeal"
+                android:background="@drawable/color_button"
+                 />
+
+            <Button
+                android:id="@+id/button_cyan"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorCyan"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_lightBlue"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorLightBlue"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_blue"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorBlue"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_darkBlue"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorDarkBlue"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_purple"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorPurple"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/deepPurple"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorDeepPurple"
+                android:background="@drawable/color_button"
+                />
+
+            <Button
+                android:id="@+id/button_deepPurpleDark"
+                android:layout_margin="@dimen/large_margin"
+                android:layout_width="@dimen/color_button_width"
+                android:layout_height="@dimen/color_button_width"
+                android:backgroundTint="@color/colorDeepPurpleDark"
+                android:background="@drawable/color_button"
+                />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+<!--    <EditText-->
+<!--        android:id="@+id/editColor"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/colorOfHabit"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="@string/write_color" />-->
 
     <Button
         android:id="@+id/saveHabit"

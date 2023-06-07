@@ -3,4 +3,23 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#FFA500</color>
+
+                <!--gradient-->
+    <color name="colorPink">#f50057</color>
+    <color name="colorRed">#ff1744</color>
+    <color name="colorDeepOrange">#ff3d00</color>
+    <color name="colorOrange">#ff9100</color>
+    <color name="colorAmber">#ffc400</color>
+    <color name="colorYellow">#ffea00</color>
+    <color name="colorLime">#c6ff00</color>
+    <color name="colorLightGreen">#76ff03</color>
+    <color name="colorGreen">#00e676</color>
+    <color name="colorTeal">#1de9b6</color>
+    <color name="colorCyan">#00e5ff</color>
+    <color name="colorLightBlue">#00b0ff</color>
+    <color name="colorBlue">#2979ff</color>
+    <color name="colorDarkBlue">#00008b</color>
+    <color name="colorPurple">#d500f9</color>
+    <color name="colorDeepPurple">#673ab7</color>
+    <color name="colorDeepPurpleDark">#482880</color>
 </resources>

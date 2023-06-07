@@ -3,7 +3,6 @@ package com.example.bigproject
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bigproject.databinding.ItemLayoutBinding
 
@@ -58,7 +57,7 @@ class HabitListAdapter(
             description.text = currentItem.description
             period.text = currentItem.period
             quantity.text = currentItem.quantity
-            color.setBackgroundColor(currentItem.color)
+            //color.setBackgroundColor(currentItem.color)
             priority.text = currentItem.priority.toString()
             type.text = currentItem.type.toString()
         }

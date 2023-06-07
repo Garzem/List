@@ -3,12 +3,15 @@ package com.example.bigproject
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bigproject.databinding.ActivityMainBinding
+
+//import androidx.coordinatorlayout.widget.CoordinatorLayout
+//import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,18 +46,10 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = adapter
 
-        val swipeToDeleteCallback = object : SwipeToDeleteCallback(){
-            //в аргументе указывается viewHolder, который смахивается и direction - направление
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val index = viewHolder.adapterPosition
-                adapter.habits.removeAt(index)
-                recyclerView.adapter?.notifyItemRemoved(index)
-            }
-        }
+//        fabChange()
 
-        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        swipeDelete()
 
-        itemTouchHelper.attachToRecyclerView(recyclerView)
         // обработчик нажатий FAB
 
         binding.button.setOnClickListener {
@@ -62,16 +57,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    //? объяснить подробнее этот кусок, что первое, второе и т.д
     @SuppressLint("NotifyDataSetChanged")
-    private val secondActivityLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            adapter.setList(HabitList.getHabits())
+    private val secondActivityLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                adapter.setList(HabitList.getHabits())
 
-            // работает на все строки
+                // работает на все строки
 
-            adapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
+            }
         }
-    }
 
     // этот метод используется для запуска SecondActivity с помощью ActivityResultLauncher
     // , который был зарегистрирован ранее
@@ -88,4 +85,35 @@ class MainActivity : AppCompatActivity() {
         }
         secondActivityLauncher.launch(intent)
     }
+
+    private fun swipeDelete() {
+        val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
+            //в аргументе указывается viewHolder, который смахивается и direction - направление
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val index = viewHolder.adapterPosition
+//                adapter.habits.removeAt(index)
+                HabitList.deleteHabit(index)
+                recyclerView.adapter?.notifyItemRemoved(index)
+            }
+        }
+
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+//    private fun fabChange() {
+//        //получает ссылку на CoordinatorLayout
+//        val coordinatorLayout = binding.coordinatorLayout
+//
+//        // задаём переменную, в которой указан класс, который определяет поведение fab
+//        val fabBehavior = FloatingActionButton.Behavior()
+//        //???получает параметры макета кнопки и приводим их к типу(должны быть одинакового типа)
+//        //нужно для того, чтобы иметь возможность менять привязку и расположение(гравитация)
+//        val layoutParams = binding.button.layoutParams as CoordinatorLayout.LayoutParams
+//        //привязываем поведение кнопки к fabBehavior для того, чтобы не писать огромный код
+//        layoutParams.behavior = fabBehavior
+//        //присваеваем обновленный layoutParams
+//        binding.button.layoutParams = layoutParams
+//    }
 }

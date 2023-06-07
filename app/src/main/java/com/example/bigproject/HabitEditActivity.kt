@@ -2,9 +2,7 @@ package com.example.bigproject
 
 import android.app.Activity
 import android.os.Bundle
-import android.text.TextUtils
 import android.widget.Toast
-
 import androidx.appcompat.app.AppCompatActivity
 import com.example.bigproject.databinding.ActivitySecondBinding
 
@@ -33,18 +31,18 @@ class HabitEditActivity : AppCompatActivity() {
 
         with(binding) {
             // вынести в отдельный метод saveHabit
-
             val title = editTitle.text.toString()
             val description = editDescription.text.toString()
             val quantity = editQuantity.text.toString()
             val period = editPeriod.text.toString()
             val type = getSelectedType()
             val priority = getChoosenPriority(priorityOptions)
-            val color = getColor()
+            //val color = getColor()
 
             // проверка на обязательные поля . вынести в отдельный метод validate
             // раздробить код
-            if (title.isEmpty() || description.isEmpty() || quantity.isEmpty() || period.isEmpty() || type == null || priority == Priority.Choose || color == 0) {
+            //|| color == 0
+            if (title.isEmpty() || description.isEmpty() || quantity.isEmpty() || period.isEmpty() || type == null || priority == Priority.Choose) {
                 Toast.makeText(
                     this@HabitEditActivity,
                     R.string.fill_the_line, // тип Int
@@ -52,11 +50,13 @@ class HabitEditActivity : AppCompatActivity() {
                 ).show()
                 return
             }
+            //color
             if (habitIndex != -1) {
-                val habit = Habit(title, description, period, color, priority, type, quantity)
+                val habit = Habit(title, description, period, priority, type, quantity)
                 HabitList.updateHabit(habit, habitIndex)
             } else {
-                val habit = Habit(title, description, period, color, priority, type, quantity)
+                //color
+                val habit = Habit(title, description, period, priority, type, quantity)
                 HabitList.addHabit(habit)
             }
             setResult(Activity.RESULT_OK)
@@ -94,7 +94,7 @@ class HabitEditActivity : AppCompatActivity() {
                 Priority.Medium -> spinnerPriority.setSelection(2)
                 Priority.High -> spinnerPriority.setSelection(3)
             }
-            editColor.setText(habitEdit.color.toString())
+//            editColor.setText(habitEdit.color.toString())
         }
     }
 
@@ -123,11 +123,11 @@ class HabitEditActivity : AppCompatActivity() {
         }
     }
 
-    private fun getColor(): Int {
-        val colorString = binding.editColor.text.toString()
-
-        return if (colorString.isNotEmpty() && TextUtils.isDigitsOnly(colorString)) {
-            colorString.toInt()
-        } else 0
-    }
+//    private fun getColor(): Int {
+//        val colorString = binding.editColor.text.toString()
+//
+//        return if (colorString.isNotEmpty() && TextUtils.isDigitsOnly(colorString)) {
+//            colorString.toInt()
+//        } else 0
+//    }
 }

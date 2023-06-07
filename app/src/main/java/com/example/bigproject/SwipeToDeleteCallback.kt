@@ -2,7 +2,7 @@ package com.example.bigproject
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-
+//??зачем абстрактный класс
 abstract class SwipeToDeleteCallback : ItemTouchHelper.Callback() {
     //опеределяет флаги перемещения элементов в RecyclerView
     override fun getMovementFlags(
