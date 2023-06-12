@@ -1,4 +1,4 @@
-package com.example.bigproject
+package com.example.habit_create
 
 object HabitList {
 
@@ -9,8 +9,10 @@ object HabitList {
     // set заменяет значение habit на указанном индексе
 
     fun updateHabit(habit: Habit, index: Int) = habitsList.set(index, habit)
-
-    fun deleteHabit(index: Int) = habitsList.removeAt(index)
+    //??
+    fun deleteHabit(index: Int) {
+        habitsList.apply { drop(index) }
+    }
 
     // toList нужен для того, чтобы список не менялся, кроме случаев со специальным методом
     fun getHabits() = habitsList.toList()

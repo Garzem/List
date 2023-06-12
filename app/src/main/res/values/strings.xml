@@ -25,4 +25,5 @@
     <string name="priority">priority</string>
     <string name="type">type</string>
     <string name="period">3 раза в неделю</string>
+    <string name="colorText">Цвет</string>
 </resources>

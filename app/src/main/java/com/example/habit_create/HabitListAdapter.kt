@@ -1,4 +1,4 @@
-package com.example.bigproject
+package com.example.habit_create
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

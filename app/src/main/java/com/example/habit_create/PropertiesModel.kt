@@ -1,4 +1,4 @@
-package com.example.bigproject
+package com.example.habit_create
 
 data class Habit(
     val title: String,

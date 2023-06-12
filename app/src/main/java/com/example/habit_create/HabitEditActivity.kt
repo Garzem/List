@@ -1,12 +1,13 @@
-package com.example.bigproject
+package com.example.habit_create
 
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bigproject.R
 import com.example.bigproject.databinding.ActivitySecondBinding
 
-class HabitEditActivity : AppCompatActivity() {
+class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener {
 
     private lateinit var binding: ActivitySecondBinding
     private var habitIndex: Int = -1
@@ -17,6 +18,11 @@ class HabitEditActivity : AppCompatActivity() {
         binding = ActivitySecondBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        val chooseColorButton = binding.chooseColorButton
+        chooseColorButton.setOnClickListener{
+            colorDialog()
+        }
 
         habitEditChange()
 
@@ -121,6 +127,16 @@ class HabitEditActivity : AppCompatActivity() {
                 else -> Priority.Choose
             }
         }
+    }
+
+    private fun colorDialog(){
+        val colorChooseDialog = ColorChooseDialog()
+        colorChooseDialog.setOnInputListener(this)
+        colorChooseDialog.show(supportFragmentManager, "color_dialog")
+    }
+    //???зачем мне это обрабатывать здесь? Почему я не могу это сделать в диалоге?
+    override fun sendColor(color: Int) {
+        TODO("Not yet implemented")
     }
 
 //    private fun getColor(): Int {

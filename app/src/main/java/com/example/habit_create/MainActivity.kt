@@ -1,4 +1,4 @@
-package com.example.bigproject
+package com.example.habit_create
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -16,7 +16,6 @@ import com.example.bigproject.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     // делает более позднюю инициализацию, чтобы не было проблем с отображением активити
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: HabitListAdapter
     private lateinit var recyclerView: RecyclerView
@@ -52,12 +51,11 @@ class MainActivity : AppCompatActivity() {
 
         // обработчик нажатий FAB
 
-        binding.button.setOnClickListener {
+        binding.buttonFAB.setOnClickListener {
             launchSecondActivity()
         }
     }
 
-    //? объяснить подробнее этот кусок, что первое, второе и т.д
     @SuppressLint("NotifyDataSetChanged")
     private val secondActivityLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -93,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 val index = viewHolder.adapterPosition
 //                adapter.habits.removeAt(index)
                 HabitList.deleteHabit(index)
-                recyclerView.adapter?.notifyItemRemoved(index)
+                adapter.notifyItemRemoved(index)
             }
         }
 
