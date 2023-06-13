@@ -11,88 +11,106 @@
 
     <TextView
         android:id="@+id/title"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="@id/colorMain"
+        app:layout_constraintStart_toStartOf="@+id/colorMain"
+        android:layout_margin="@dimen/large_margin"
         android:text="@string/title"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size_big"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="2dp" />
+        android:elevation="@dimen/elevation" />
 
     <!-- описание -->
 
     <TextView
         android:id="@+id/description"
         app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="@+id/colorMain"
+        android:layout_marginStart="@dimen/large_margin"
         android:text="@string/button_to_add"
+        android:textSize="@dimen/text_size"
+        android:textColor="@color/colorGreyLight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="2dp" />
+        android:elevation="@dimen/elevation" />
 
     <!-- количество -->
 
     <TextView
         android:id="@+id/quantity"
-        app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="@+id/colorMain"
+        app:layout_constraintEnd_toEndOf="@+id/colorMain"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginEnd="@dimen/large_margin"
         android:text="@string/something"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="@dimen/text_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="2dp" />
+        android:elevation="@dimen/elevation" />
 
     <!-- приоритет -->
 
     <TextView
         android:id="@+id/priority"
-        app:layout_constraintTop_toBottomOf="@+id/period"
-        app:layout_constraintEnd_toEndOf="@+id/period"
+        app:layout_constraintTop_toTopOf="@+id/colorSupport"
+        app:layout_constraintStart_toStartOf="@+id/colorSupport"
+        android:layout_margin="@dimen/large_margin"
         android:text="@string/priority"
-        android:layout_marginTop="8dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="2dp" />
-
-    <!-- тип -->
-
-    <TextView
-        android:id="@+id/type"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/title"
-        android:layout_marginEnd="40dp"
-        android:text="@string/type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="2dp" />
+        android:elevation="@dimen/elevation" />
 
     <!-- периодичность -->
 
     <TextView
         android:id="@+id/period"
-        app:layout_constraintTop_toTopOf="@+id/description"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/colorSupport"
+        app:layout_constraintStart_toStartOf="@+id/colorSupport"
+        android:layout_margin="@dimen/large_margin"
         android:text="@string/period"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="2dp" />
+        android:elevation="@dimen/elevation"/>
+
+    <!-- тип -->
+
+    <TextView
+        android:id="@+id/type"
+        app:layout_constraintEnd_toEndOf="@+id/colorSupport"
+        app:layout_constraintTop_toTopOf="@+id/colorSupport"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:text="@string/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/elevation" />
 
     <!-- цвет -->
 
     <View
-        android:id="@+id/color"
-        android:background="@color/orange"
-        android:alpha="0.3"
+        android:id="@+id/colorMain"
+        android:background="@drawable/color_button_orange"
+        android:alpha="0.35"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:elevation="1dp"
+        android:layout_height="85dp"
+        android:elevation="@dimen/elevation_color"
+        />
+
+    <View
+        android:id="@+id/colorSupport"
+        android:background="@drawable/color_button_orange"
+        android:alpha="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colorMain"
+        android:layout_width="wrap_content"
+        android:layout_height="85dp"
+        android:elevation="@dimen/elevation_color"
         />
 
 

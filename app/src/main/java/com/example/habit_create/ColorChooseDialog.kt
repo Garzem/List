@@ -1,15 +1,16 @@
 package com.example.habit_create
 
-import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.example.bigproject.R
 import com.example.bigproject.databinding.HorizontalColorChooseBinding
+
 
 class ColorChooseDialog: DialogFragment() {
 
@@ -33,17 +34,27 @@ class ColorChooseDialog: DialogFragment() {
         buttons.forEach {button ->
             button.setOnClickListener{
                 //it указывается для того, чтобы не учитывать нажатий по другим элементам, кроме button, если они есть
-                onInputListener!!.sendColor((it as Button).currentHintTextColor)
-                dismiss()
+                val drawable = (it as Button).background
+                //проверяем является ли drawable экземпляром GradientDrawable
+                if (drawable is GradientDrawable) {
+                    //достаём цвет и т.к нет смены цвета при нажатии, то берём дефолтный цвет
+                    val colorStateList = drawable.color
+                    var color = colorStateList?.defaultColor
+                    //задаём исключение
+                    if (color != null) {
+                        onInputListener!!.sendColor(color)
+                    } else {
+                        //получает сразу числовой цвет
+                        color = ContextCompat.getColor(requireContext(), R.color.white)
+                        onInputListener!!.sendColor(color)
+                    }
+                    dismiss()
+                }
             }
         }
     }
 
     interface OnInputListener {
         fun sendColor(color: Int)
-    }
-
-    fun setOnInputListener(listener: OnInputListener) {
-        onInputListener = listener
     }
 }

@@ -1,6 +1,7 @@
 package com.example.habit_create
 
 import android.app.Activity
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
 
     private lateinit var binding: ActivitySecondBinding
     private var habitIndex: Int = -1
+    private var selectedColor: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
             val quantity = editQuantity.text.toString()
             val period = editPeriod.text.toString()
             val type = getSelectedType()
-            val priority = getChoosenPriority(priorityOptions)
+            val priority = getChosenPriority(priorityOptions)
             //val color = getColor()
 
             // проверка на обязательные поля . вынести в отдельный метод validate
@@ -116,7 +118,7 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
     }
 
     //???Почему это работает
-    private fun getChoosenPriority(priorityOptions: Array<String>): Priority {
+    private fun getChosenPriority(priorityOptions: Array<String>): Priority {
         with(binding) {
             // связываем xml с kotlin
             return when (spinnerPriority.selectedItem.toString()) {
@@ -128,15 +130,16 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
             }
         }
     }
-
+    //открывает ColorChooseDialog
     private fun colorDialog(){
         val colorChooseDialog = ColorChooseDialog()
-        colorChooseDialog.setOnInputListener(this)
         colorChooseDialog.show(supportFragmentManager, "color_dialog")
     }
-    //???зачем мне это обрабатывать здесь? Почему я не могу это сделать в диалоге?
+    //???зачем мне это обрабатывать здесь? Почему я не могу это сделать в диалоге? (написал почти сам)
     override fun sendColor(color: Int) {
-        TODO("Not yet implemented")
+        selectedColor = color
+        val buttonBackground = binding.chooseColorButton.background as GradientDrawable
+        selectedColor = buttonBackground.color?.defaultColor ?: R.color.white
     }
 
 //    private fun getColor(): Int {

@@ -61,9 +61,7 @@ class MainActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 adapter.setList(HabitList.getHabits())
-
                 // работает на все строки
-
                 adapter.notifyDataSetChanged()
             }
         }

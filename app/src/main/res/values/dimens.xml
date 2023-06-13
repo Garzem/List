@@ -3,5 +3,12 @@
     <dimen name="small_margin">4dp</dimen>
     <dimen name="normal_margin">8dp</dimen>
     <dimen name="large_margin">16dp</dimen>
+    <dimen name="huge_margin">32dp</dimen>
     <dimen name="color_button_width">50dp</dimen>
+    <dimen name="color_button_width_small">40dp</dimen>
+    <dimen name="text_size">15sp</dimen>
+    <dimen name="text_size_normal">17sp</dimen>
+    <dimen name="text_size_big">20sp</dimen>
+    <dimen name="elevation">2dp</dimen>
+    <dimen name="elevation_color">1dp</dimen>
 </resources>

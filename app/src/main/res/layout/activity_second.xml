@@ -9,19 +9,28 @@
 
     <EditText
         android:id="@+id/editTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/large_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/small_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/colorHolder"
+        android:background="@drawable/stroke"
         android:hint="@string/title_of_habit"
         android:inputType="text|textAutoCorrect" />
 
     <EditText
         android:id="@+id/editDescription"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/large_margin"
+        android:background="@drawable/stroke"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_marginTop="@dimen/normal_margin"
         app:layout_constraintTop_toBottomOf="@id/editTitle"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/habit_description"
@@ -30,9 +39,11 @@
     <TextView
         android:id="@+id/textPriority"
         android:text="@string/select_the_priority"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintTop_toBottomOf="@+id/editDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -40,7 +51,8 @@
         android:id="@+id/spinnerPriority"
         app:layout_constraintTop_toBottomOf="@+id/textPriority"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:entries="@array/priority_options" />
@@ -48,17 +60,22 @@
     <TextView
         android:id="@+id/textRadio"
         android:text="@string/choose_the_type"
-        android:layout_margin="@dimen/normal_margin"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/spinnerPriority"
+        app:layout_constraintTop_toBottomOf="@+id/editPeriod"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <RadioGroup
         android:id="@+id/radioType"
         app:layout_constraintTop_toBottomOf="@+id/textRadio"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -81,7 +98,10 @@
         android:id="@+id/editQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/large_margin"
+        android:background="@drawable/stroke"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/normal_margin"
         app:layout_constraintTop_toBottomOf="@id/editDescription"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/quantity_doing_habit"
@@ -89,31 +109,50 @@
 
     <EditText
         android:id="@+id/editPeriod"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/small_margin"
+        android:padding="@dimen/large_margin"
+        android:background="@drawable/stroke"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginTop="@dimen/normal_margin"
         app:layout_constraintTop_toBottomOf="@id/editQuantity"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/execution_frequency"
         android:inputType="text|textAutoCorrect" />
+    <View
+        android:id="@+id/colorHolder"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/small_margin"
+        app:layout_constraintTop_toTopOf="@+id/editTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/editTitle"
+        android:background="@drawable/stroke"/>
 
     <TextView
         android:id="@+id/textChooseColor"
         android:text="@string/colorText"
-        app:layout_constraintTop_toBottomOf="@id/editPeriod"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/normal_margin"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/text_size_normal"
+        app:layout_constraintTop_toTopOf="@+id/colorHolder"
+        app:layout_constraintBottom_toBottomOf="@+id/colorHolder"
+        app:layout_constraintStart_toStartOf="@+id/colorHolder"
+        android:layout_marginStart="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/chooseColorButton"
-        android:layout_width="@dimen/color_button_width"
-        android:layout_height="@dimen/color_button_width"
-        android:layout_margin="@dimen/normal_margin"
-        app:layout_constraintTop_toBottomOf="@id/textChooseColor"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/color_button" />
+        android:layout_width="@dimen/color_button_width_small"
+        android:layout_height="@dimen/color_button_width_small"
+        android:layout_marginEnd="@dimen/large_margin"
+        android:layout_marginStart="@dimen/large_margin"
+        app:layout_constraintTop_toTopOf="@+id/colorHolder"
+        app:layout_constraintBottom_toBottomOf="@+id/colorHolder"
+        app:layout_constraintStart_toEndOf="@+id/textChooseColor"
+        android:background="@drawable/color_button_orange" />
 
 <!--    <EditText-->
 <!--        android:id="@+id/editColor"-->
