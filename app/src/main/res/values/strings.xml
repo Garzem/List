@@ -12,9 +12,9 @@
     <string name="save">Сохранить</string>
     <string name="something">Something</string>
     <string name="color_choose_text">Выберите цвет</string>
-
+    <!--Обращение к этому-->
     <string-array name="priority_options">
-        <item>Выбирете значение</item>
+        <item>Приоритет</item>
         <item>Низкий</item>
         <item>Средний</item>
         <item>Высокий</item>

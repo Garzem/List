@@ -8,7 +8,7 @@
     tools:context="com.example.habit_create.HabitEditActivity">
 
     <EditText
-        android:id="@+id/editTitle"
+        android:id="@+id/edit_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/large_margin"
@@ -17,13 +17,13 @@
         android:layout_marginEnd="@dimen/small_margin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/colorHolder"
+        app:layout_constraintEnd_toStartOf="@+id/color_holder"
         android:background="@drawable/stroke"
         android:hint="@string/title_of_habit"
         android:inputType="text|textAutoCorrect" />
 
     <EditText
-        android:id="@+id/editDescription"
+        android:id="@+id/edit_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/large_margin"
@@ -31,84 +31,98 @@
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginEnd="@dimen/small_margin"
         android:layout_marginTop="@dimen/normal_margin"
-        app:layout_constraintTop_toBottomOf="@id/editTitle"
+        app:layout_constraintTop_toBottomOf="@id/edit_title"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/habit_description"
         android:inputType="text|textAutoCorrect" />
-
-    <TextView
-        android:id="@+id/textPriority"
-        android:text="@string/select_the_priority"
-        android:textColor="@color/colorBlack"
-        app:layout_constraintTop_toBottomOf="@+id/editDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/large_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+ <!--добавить id через _ -->
     <Spinner
-        android:id="@+id/spinnerPriority"
-        app:layout_constraintTop_toBottomOf="@+id/textPriority"
+        android:id="@+id/spinner_priority"
+        app:layout_constraintTop_toBottomOf="@+id/edit_description"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_period"
+        android:layout_marginBottom="@dimen/normal_margin"
         android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/large_margin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/small_margin"
+        android:layout_width="120dp"
+        android:layout_height="0dp"
+        android:background="@drawable/stroke"
         android:entries="@array/priority_options" />
 
-    <TextView
-        android:id="@+id/textRadio"
-        android:text="@string/choose_the_type"
-        android:textColor="@color/colorBlack"
+    <View
+        android:id="@+id/type_holder"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/large_margin"
+        android:layout_marginStart="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="@+id/radio_type"
+        app:layout_constraintTop_toBottomOf="@+id/edit_period"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/stroke"/>
+
+    <TextView
+        android:id="@+id/text_radio"
+        android:text="@string/choose_the_type"
+        android:textColor="@color/colorGreyDark"
+        android:textSize="@dimen/text_size_normal"
+        android:layout_marginTop="@dimen/normal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/editPeriod"
+        app:layout_constraintTop_toTopOf="@+id/type_holder"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <RadioGroup
-        android:id="@+id/radioType"
-        app:layout_constraintTop_toBottomOf="@+id/textRadio"
+        android:id="@+id/radio_type"
+        app:layout_constraintTop_toBottomOf="@+id/text_radio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/normal_margin"
-        android:layout_marginEnd="@dimen/large_margin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/normal_margin">
 
         <RadioButton
-            android:id="@+id/radioPhysical"
+            android:id="@+id/radio_physical"
             android:text="@string/Physical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGreyDark"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_marginEnd="@dimen/large_margin" />
 
         <RadioButton
-            android:id="@+id/radioMental"
+            android:id="@+id/radio_mental"
             android:text="@string/mental"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorGreyDark"
+            android:textSize="@dimen/text_size_normal"
+            android:layout_marginStart="@dimen/large_margin" />
 
 
     </RadioGroup>
 
     <EditText
-        android:id="@+id/editQuantity"
-        android:layout_width="wrap_content"
+        android:id="@+id/edit_quantity"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/large_margin"
         android:background="@drawable/stroke"
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginTop="@dimen/normal_margin"
-        app:layout_constraintTop_toBottomOf="@id/editDescription"
+        android:layout_marginEnd="@dimen/small_margin"
+        app:layout_constraintEnd_toStartOf="@+id/spinner_priority"
+        app:layout_constraintTop_toBottomOf="@+id/edit_description"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/quantity_doing_habit"
         android:inputType="number"/>
 
     <EditText
-        android:id="@+id/editPeriod"
+        android:id="@+id/edit_period"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/large_margin"
@@ -116,54 +130,47 @@
         android:layout_marginEnd="@dimen/small_margin"
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginTop="@dimen/normal_margin"
-        app:layout_constraintTop_toBottomOf="@id/editQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/edit_quantity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/execution_frequency"
         android:inputType="text|textAutoCorrect" />
+
     <View
-        android:id="@+id/colorHolder"
+        android:id="@+id/color_holder"
         android:layout_width="120dp"
         android:layout_height="0dp"
         android:layout_marginEnd="@dimen/small_margin"
-        app:layout_constraintTop_toTopOf="@+id/editTitle"
+        app:layout_constraintTop_toTopOf="@+id/edit_title"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/editTitle"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_title"
         android:background="@drawable/stroke"/>
 
     <TextView
-        android:id="@+id/textChooseColor"
+        android:id="@+id/text_choose_color"
         android:text="@string/colorText"
-        android:textColor="@color/colorBlack"
+        android:textColor="@color/colorGreyDark"
         android:textSize="@dimen/text_size_normal"
-        app:layout_constraintTop_toTopOf="@+id/colorHolder"
-        app:layout_constraintBottom_toBottomOf="@+id/colorHolder"
-        app:layout_constraintStart_toStartOf="@+id/colorHolder"
+        app:layout_constraintTop_toTopOf="@+id/color_holder"
+        app:layout_constraintBottom_toBottomOf="@+id/color_holder"
+        app:layout_constraintStart_toStartOf="@+id/color_holder"
         android:layout_marginStart="@dimen/large_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/chooseColorButton"
+        android:id="@+id/choose_color_button"
         android:layout_width="@dimen/color_button_width_small"
         android:layout_height="@dimen/color_button_width_small"
         android:layout_marginEnd="@dimen/large_margin"
         android:layout_marginStart="@dimen/large_margin"
-        app:layout_constraintTop_toTopOf="@+id/colorHolder"
-        app:layout_constraintBottom_toBottomOf="@+id/colorHolder"
-        app:layout_constraintStart_toEndOf="@+id/textChooseColor"
+        app:layout_constraintTop_toTopOf="@+id/color_holder"
+        app:layout_constraintBottom_toBottomOf="@+id/color_holder"
+        app:layout_constraintStart_toEndOf="@+id/text_choose_color"
         android:background="@drawable/color_button_orange" />
 
-<!--    <EditText-->
-<!--        android:id="@+id/editColor"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/colorOfHabit"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:hint="@string/write_color" />-->
-
     <Button
-        android:id="@+id/saveHabit"
+        android:id="@+id/save_habit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

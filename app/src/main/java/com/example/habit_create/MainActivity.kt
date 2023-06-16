@@ -4,19 +4,17 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bigproject.databinding.ActivityMainBinding
-
-//import androidx.coordinatorlayout.widget.CoordinatorLayout
-//import com.google.android.material.floatingactionbutton.FloatingActionButton
-
 class MainActivity : AppCompatActivity() {
 
     // делает более позднюю инициализацию, чтобы не было проблем с отображением активити
-    private lateinit var binding: ActivityMainBinding
+    private var binding: ActivityMainBinding? = null
     private lateinit var adapter: HabitListAdapter
     private lateinit var recyclerView: RecyclerView
 
@@ -24,36 +22,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // создаёт связь с макетом activity_main
-
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         // определяет какой макет будет отображаться при открытии активити
         // в данном случае это корневой view, т.е activity_main
-
-        setContentView(binding.root)
+        setContentView(binding!!.root)
 
         // задаёт переменную recyclerView, которая ссылается на RecycleViewHabit
-
-        recyclerView = binding.RecycleViewHabit
+        recyclerView = binding!!.RecycleViewHabit
 
         // в переменную adapter передаётся список элементов из RecycleViewAdapter
-
         adapter = HabitListAdapter(::openHabitChange)
 
         // устанавливает adapter для RecyclerView, обращаясь к нему и
         // переопределяя переменную adapter, которая изначально задана в RecyclerView
-
         recyclerView.adapter = adapter
 
-//        fabChange()
-
-        swipeDelete()
-
         // обработчик нажатий FAB
-
-        binding.buttonFAB.setOnClickListener {
+        binding!!.buttonFab.setOnClickListener {
             launchSecondActivity()
         }
+
+        swipeDelete()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -63,6 +53,13 @@ class MainActivity : AppCompatActivity() {
                 adapter.setList(HabitList.getHabits())
                 // работает на все строки
                 adapter.notifyDataSetChanged()
+                //сверяет layoutParams кнопки с тем, чтобы они были типа CoordinatorLayout
+                val layoutFabParams = binding?.buttonFab?.layoutParams as CoordinatorLayout.LayoutParams
+                layoutFabParams.let {
+                    it.gravity = Gravity.BOTTOM or Gravity.END
+                    //меняет расположение кнопки
+                    binding?.buttonFab?.layoutParams = it
+                }
             }
         }
 
@@ -73,7 +70,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, HabitEditActivity::class.java)
         secondActivityLauncher.launch(intent)
     }
-
 
     private fun openHabitChange(index: Int) {
         val intent = Intent(this, HabitEditActivity::class.java).apply {
@@ -87,29 +83,11 @@ class MainActivity : AppCompatActivity() {
             //в аргументе указывается viewHolder, который смахивается и direction - направление
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val index = viewHolder.adapterPosition
-//                adapter.habits.removeAt(index)
                 HabitList.deleteHabit(index)
                 adapter.notifyItemRemoved(index)
             }
         }
-
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-
         itemTouchHelper.attachToRecyclerView(recyclerView)
     }
-
-//    private fun fabChange() {
-//        //получает ссылку на CoordinatorLayout
-//        val coordinatorLayout = binding.coordinatorLayout
-//
-//        // задаём переменную, в которой указан класс, который определяет поведение fab
-//        val fabBehavior = FloatingActionButton.Behavior()
-//        //???получает параметры макета кнопки и приводим их к типу(должны быть одинакового типа)
-//        //нужно для того, чтобы иметь возможность менять привязку и расположение(гравитация)
-//        val layoutParams = binding.button.layoutParams as CoordinatorLayout.LayoutParams
-//        //привязываем поведение кнопки к fabBehavior для того, чтобы не писать огромный код
-//        layoutParams.behavior = fabBehavior
-//        //присваеваем обновленный layoutParams
-//        binding.button.layoutParams = layoutParams
-//    }
 }
