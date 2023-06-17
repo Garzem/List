@@ -80,7 +80,6 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
 
     // заполняет поля данными, которые были переданы ранее из MainActivity
     private fun fillFieldsWithHabitData(habitEdit: Habit) {
-        binding?.let {
             with(binding!!) {
                 editTitle.setText(habitEdit.title)
                 editDescription.setText(habitEdit.description)
@@ -99,7 +98,6 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
                     Priority.High -> spinnerPriority.setSelection(3)
                 }
                 chooseColorButton.setBackgroundColor(habitEdit.color)
-            }
         }
     }
 

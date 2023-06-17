@@ -29,7 +29,6 @@ class ColorChooseDialog: DialogFragment() {
         //и создает экземпляр привязки (binding) для этого представления
         binding = HorizontalColorChooseBinding.bind(view)
         //получает все элементы доступные для нажатия
-        binding?.let {
             buttons = binding!!.linearColorButtons.touchables
             buttons!!.forEach { button ->
                 button.setOnClickListener {
@@ -37,7 +36,6 @@ class ColorChooseDialog: DialogFragment() {
                     //проверяем является ли drawable экземпляром GradientDrawable
                     onInputListener!!.sendColor((it as Button).currentHintTextColor)
                     dismiss()
-                }
             }
         }
     }
