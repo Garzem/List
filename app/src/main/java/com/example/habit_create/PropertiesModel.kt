@@ -11,13 +11,13 @@ data class Habit(
 )
 
 enum class Priority {
-    High,
-    Medium,
-    Low,
-    Choose
+    HIGH,
+    MEDIUM,
+    LOW,
+    CHOOSE
 }
 
 enum class Type {
-    Physical,
-    Mental
+    PHYSICAL,
+    MENTAL
 }

@@ -80,58 +80,60 @@ class HabitEditActivity : AppCompatActivity(), ColorChooseDialog.OnInputListener
 
     // заполняет поля данными, которые были переданы ранее из MainActivity
     private fun fillFieldsWithHabitData(habitEdit: Habit) {
-            with(binding!!) {
-                editTitle.setText(habitEdit.title)
-                editDescription.setText(habitEdit.description)
-                editQuantity.setText(habitEdit.quantity)
-                editPeriod.setText(habitEdit.period)
+        with(binding!!) {
+            editTitle.setText(habitEdit.title)
+            editDescription.setText(habitEdit.description)
+            editQuantity.setText(habitEdit.quantity)
+            editPeriod.setText(habitEdit.period)
 
-                when (habitEdit.type) {
-                    Type.Physical -> radioType.check(radioPhysical.id)
-                    Type.Mental -> radioType.check(radioMental.id)
-                }
+            when (habitEdit.type) {
+                Type.PHYSICAL -> radioType.check(radioPhysical.id)
+                Type.MENTAL -> radioType.check(radioMental.id)
+            }
 
-                when (habitEdit.priority) {
-                    Priority.Choose -> spinnerPriority.setSelection(0)
-                    Priority.Low -> spinnerPriority.setSelection(1)
-                    Priority.Medium -> spinnerPriority.setSelection(2)
-                    Priority.High -> spinnerPriority.setSelection(3)
-                }
-                chooseColorButton.setBackgroundColor(habitEdit.color)
+            when (habitEdit.priority) {
+                Priority.CHOOSE -> spinnerPriority.setSelection(0)
+                Priority.LOW -> spinnerPriority.setSelection(1)
+                Priority.MEDIUM -> spinnerPriority.setSelection(2)
+                Priority.HIGH -> spinnerPriority.setSelection(3)
+            }
+            chooseColorButton.setBackgroundColor(habitEdit.color)
         }
     }
 
     // находит отмеченную кнопку и определяет её тип, возвращая полученное значение
     private fun getSelectedType(): Type? {
-            with(binding!!) {
-                return when (radioType.checkedRadioButtonId) {
-                    radioPhysical.id -> Type.Physical
-                    radioMental.id -> Type.Mental
-                    else -> null
-                }
+        with(binding!!) {
+            return when (radioType.checkedRadioButtonId) {
+                radioPhysical.id -> Type.PHYSICAL
+                radioMental.id -> Type.MENTAL
+                else -> null
             }
         }
+    }
 
 
     //???Почему это работает
     private fun getChosenPriority(priorityOptions: Array<String>): Priority {
-            with(binding!!) {
+        binding?.let {
                 // связываем xml с kotlin
-                return when (spinnerPriority.selectedItem.toString()) {
-                    priorityOptions[0] -> Priority.Choose
-                    priorityOptions[1] -> Priority.Low
-                    priorityOptions[2] -> Priority.Medium
-                    priorityOptions[3] -> Priority.High
-                    else -> Priority.Choose
-                }
+                return when (it.spinnerPriority.selectedItem.toString()) {
+                    priorityOptions[0] -> Priority.CHOOSE
+                    priorityOptions[1] -> Priority.LOW
+                    priorityOptions[2] -> Priority.MEDIUM
+                    priorityOptions[3] -> Priority.HIGH
+                    else -> Priority.CHOOSE
             }
         }
+        return Priority.CHOOSE
+    }
 
     //открывает ColorChooseDialog
-    private fun colorDialog(){
+    private fun colorDialog() {
         val colorChooseDialog = ColorChooseDialog()
         colorChooseDialog.show(supportFragmentManager, "color_dialog")
     }
+
     //???зачем мне это обрабатывать здесь? Почему я не могу это сделать в диалоге? (написал почти сам)
     override fun sendColor(colorChoose: Int) {
         selectedColor = colorChoose

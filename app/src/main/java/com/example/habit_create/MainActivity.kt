@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding!!.root)
 
         // задаёт переменную recyclerView, которая ссылается на RecycleViewHabit
-        recyclerView = binding!!.RecycleViewHabit
+        recyclerView = binding!!.recycleViewHabit
 
         // в переменную adapter передаётся список элементов из RecycleViewAdapter
         adapter = HabitListAdapter(::openHabitChange)

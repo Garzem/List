@@ -8,7 +8,7 @@
     tools:context="com.example.habit_create.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/RecycleViewHabit"
+            android:id="@+id/recycle_view_habit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
